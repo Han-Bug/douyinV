@@ -1,7 +1,7 @@
 package test
 
 import (
-	"douyinV/controller"
+	"douyinV/old/controller"
 	"encoding/json"
 	"fmt"
 	"io"

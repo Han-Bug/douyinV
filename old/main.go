@@ -1,7 +1,7 @@
-package main
+package old
 
 import (
-	"douyinV/service"
+	"douyinV/old/service"
 	"github.com/gin-gonic/gin"
 )
 
