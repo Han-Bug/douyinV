@@ -20,7 +20,7 @@ struct Message {
 }
 
 service Chat {
-    ChatResp Chat(1: ChatReq req) (api.get="douyin/message/chat")
+    ChatResp Chat(1: ChatReq req) (api.get="douyin/message/chat/")
 }
 
 
@@ -37,5 +37,5 @@ struct ActionResp {
 }
 
 service Action {
-    ActionResp Action(1: ActionReq req) (api.post="douyin/message/action")
+    ActionResp Action(1: ActionReq req) (api.post="douyin/message/action/")
 }
