@@ -4,13 +4,19 @@ package main
 
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"tiktok/biz/rpc"
 	"tiktok/config"
+	"tiktok/dal"
 )
 
 func main() {
 	config.Init()
 
-	h := server.Default(server.WithHostPorts(config.ClientUrlHostNamePORT))
+	rpc.Init()
+
+	dal.Init()
+
+	h := server.Default(server.WithHostPorts(config.ClientUrlHP))
 
 	register(h)
 	h.Spin()

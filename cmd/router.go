@@ -10,7 +10,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"strconv"
 	"tiktok/biz/handler"
-	"tiktok/biz/model/feed"
+	"tiktok/feed/kitex_gen/api"
 	"tiktok/mock"
 )
 
@@ -34,7 +34,7 @@ func customizedRegister(r *server.Hertz) {
 		}
 		ctx.JSON(200, utils.H{
 			"status_code": 0,
-			"user_id":     user.Basic.ID,
+			"user_id":     user.Basic.Id,
 			"token":       user.Token,
 		})
 	})
@@ -54,12 +54,12 @@ func customizedRegister(r *server.Hertz) {
 		if uid == 1 {
 			ctx.JSON(200, utils.H{
 				"status_code": 0,
-				"user_list":   []feed.User{mock.GetUserByID(2).Basic},
+				"user_list":   []api.User{mock.GetUserByID(2).Basic},
 			})
 		} else {
 			ctx.JSON(200, utils.H{
 				"status_code": 0,
-				"user_list":   []feed.User{mock.GetUserByID(1).Basic},
+				"user_list":   []api.User{mock.GetUserByID(1).Basic},
 			})
 		}
 	})

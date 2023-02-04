@@ -1,12 +1,12 @@
 package mock
 
 import (
-	"tiktok/biz/model/feed"
 	"tiktok/config"
+	"tiktok/feed/kitex_gen/api"
 )
 
 type User struct {
-	Basic    feed.User
+	Basic    api.User
 	Username string
 	Password string
 	Token    string
@@ -15,26 +15,26 @@ type User struct {
 func getUsers() []User {
 	return []User{
 		{
-			Basic: feed.User{
-				ID:            1,
+			Basic: api.User{
+				Id:            1,
 				Name:          "Bonnenult",
 				FollowCount:   1,
 				FollowerCount: 1,
 				IsFollow:      false,
-				AvatarUrl:     config.ClientUrl + "/resource/avatar/1.jpeg",
+				Avatar:        config.ClientUrl + "/resource/avatar/1.jpeg",
 			},
 			Username: "ljd",
 			Password: "123456",
 			Token:    "1",
 		},
 		{
-			Basic: feed.User{
-				ID:            2,
+			Basic: api.User{
+				Id:            2,
 				Name:          "admin",
 				FollowCount:   1,
 				FollowerCount: 1,
 				IsFollow:      false,
-				AvatarUrl:     config.ClientUrl + "/resource/avatar/2.jpeg",
+				Avatar:        config.ClientUrl + "/resource/avatar/2.jpeg",
 			},
 			Username: "admin",
 			Password: "123456",
@@ -56,7 +56,7 @@ func GetUserByUsername(un string) *User {
 func GetUserByID(id int) *User {
 	users := getUsers()
 	for _, v := range users {
-		if v.Basic.ID == int64(id) {
+		if v.Basic.Id == int64(id) {
 			return &v
 		}
 	}

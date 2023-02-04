@@ -4,6 +4,8 @@ package message
 
 import (
 	"context"
+	"strconv"
+	"tiktok/biz/rpc"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -21,7 +23,8 @@ func Chat(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(message.ChatResp)
+	fromUID, _ := strconv.Atoi(req.Token)
+	resp := rpc.Chat(fromUID, int(req.ToUserID))
 
 	c.JSON(consts.StatusOK, resp)
 }

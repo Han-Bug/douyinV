@@ -8,11 +8,11 @@ import (
 )
 
 var (
-	MysqlDsn              string
-	ClientUrlHostNamePORT string
-	ClientUrl             string
-	ServerUrlHostNamePORT string
-	ServerUrl             string
+	MysqlDsn        string
+	ClientUrlHP     string
+	ClientUrl       string
+	ServerFeedUrlHP string
+	ServerMsgUrlHP  string
 )
 
 func Init() {
@@ -21,10 +21,10 @@ func Init() {
 	}
 
 	MysqlDsn = os.Getenv("MYSQL_DSN")
-	ClientUrlHostNamePORT = os.Getenv("CLIENT_URL_HOSTNAME_PORT")
-	ClientUrl = os.Getenv("CLIENT_URL_PROTOCOL") + "://" + ClientUrlHostNamePORT
-	ServerUrlHostNamePORT = os.Getenv("SERVER_URL_HOSTNAME_PORT")
-	ServerUrl = os.Getenv("SERVER_URL_PROTOCOL") + "://" + ClientUrlHostNamePORT
+	ClientUrlHP = os.Getenv("CLIENT_URL_HP")
+	ClientUrl = os.Getenv("CLIENT_URL_PROTOCOL") + "://" + ClientUrlHP
+	ServerFeedUrlHP = os.Getenv("SERVER_FEED_URL_HP")
+	ServerMsgUrlHP = os.Getenv("SERVER_MSG_URL_HP")
 }
 
 func getCurrentAbPath() string {

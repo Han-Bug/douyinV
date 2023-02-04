@@ -7,7 +7,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	feed "tiktok/biz/model/feed"
-	"tiktok/mock"
+	"tiktok/biz/rpc"
 )
 
 // Feed .
@@ -21,10 +21,7 @@ func Feed(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := feed.FeedResp{
-		StatusCode: 0,
-		VideoList:  mock.GetVideos(),
-	}
+	resp := rpc.Feed()
 
 	c.JSON(consts.StatusOK, resp)
 }

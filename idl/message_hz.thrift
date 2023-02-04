@@ -8,7 +8,7 @@ struct ChatReq {
 struct ChatResp {
     1: required i64 StatusCode (api.body="status_code")
     2: optional string StatusMsg (api.body="status_msg")
-    3: optional Message MessageList (api.body="message_list")
+    3: list<Message> MessageList (api.body="message_list")
 }
 
 struct Message {

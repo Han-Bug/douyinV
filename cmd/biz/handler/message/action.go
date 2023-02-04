@@ -4,6 +4,8 @@ package message
 
 import (
 	"context"
+	"strconv"
+	"tiktok/biz/rpc"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
@@ -21,7 +23,8 @@ func Action(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(message.ActionResp)
+	fromUID, _ := strconv.Atoi(req.Token)
+	resp := rpc.Action(fromUID, int(req.ToUserID), int(req.ActionType), req.Content)
 
 	c.JSON(consts.StatusOK, resp)
 }
