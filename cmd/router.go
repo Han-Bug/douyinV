@@ -63,4 +63,18 @@ func customizedRegister(r *server.Hertz) {
 			})
 		}
 	})
+
+	r.GET("/douyin/favorite/list/", func(c context.Context, ctx *app.RequestContext) {
+		ctx.JSON(200, utils.H{
+			"status_code": 0,
+			"video_list":  nil,
+		})
+	})
+
+	r.GET("/douyin/publish/list/", func(c context.Context, ctx *app.RequestContext) {
+		ctx.JSON(200, utils.H{
+			"status_code": 0,
+			"video_list":  nil,
+		})
+	})
 }

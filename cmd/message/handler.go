@@ -20,11 +20,10 @@ func (s *MessageImpl) Chat(ctx context.Context, req *api.ChatReq) (resp *api.Cha
 	var msgList []*api.Msg
 	for _, v := range msgs {
 		msgList = append(msgList, &api.Msg{
-			Id:         int64(v.ID),
 			ToUserId:   int64(v.ToUserId),
 			FromUserId: int64(v.FromUserId),
 			Content:    v.Content,
-			CreateTime: v.CreatedAt.Format("2006-01-02 15:04:05"),
+			CreateTime: v.CreatedAt.Unix(),
 		})
 	}
 

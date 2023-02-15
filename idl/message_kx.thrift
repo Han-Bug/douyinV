@@ -12,11 +12,10 @@ struct ChatResp {
 }
 
 struct Msg {
-    1: required i64 id
     2: required i64 to_user_id
     3: required i64 from_user_id
     4: required string content
-    5: required string create_time
+    5: required i64 create_time
 }
 
 struct ActionReq {
