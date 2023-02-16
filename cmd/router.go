@@ -60,7 +60,7 @@ func customizedRegister(r *server.Hertz) {
 					Message string `json:"message,omitempty"`
 				}{
 					{mock.GetUserByID(2).Basic,
-						"",
+						rpc.ChatLatest(uid, 2),
 					},
 				},
 			})
@@ -72,7 +72,7 @@ func customizedRegister(r *server.Hertz) {
 					Message string `json:"message,omitempty"`
 				}{
 					{mock.GetUserByID(1).Basic,
-						"",
+						rpc.ChatLatest(uid, 1),
 					},
 				},
 			})

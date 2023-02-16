@@ -31,7 +31,17 @@ struct ActionResp {
     2: optional string status_msg
 }
 
+struct ChatLatestReq {
+    1: required i64 from_user_id
+    2: required i64 to_user_id
+}
+
+struct ChatLatestResp {
+    1: Msg message
+}
+
 service Message {
     ChatResp chat(1: ChatReq req)
     ActionResp action(1: ActionReq req)
+    ChatLatestResp chatLatest(1: ChatLatestReq req)
 }

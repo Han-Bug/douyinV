@@ -13,6 +13,7 @@ import (
 type Client interface {
 	Chat(ctx context.Context, req *api.ChatReq, callOptions ...callopt.Option) (r *api.ChatResp, err error)
 	Action(ctx context.Context, req *api.ActionReq, callOptions ...callopt.Option) (r *api.ActionResp, err error)
+	ChatLatest(ctx context.Context, req *api.ChatLatestReq, callOptions ...callopt.Option) (r *api.ChatLatestResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -52,4 +53,9 @@ func (p *kMessageClient) Chat(ctx context.Context, req *api.ChatReq, callOptions
 func (p *kMessageClient) Action(ctx context.Context, req *api.ActionReq, callOptions ...callopt.Option) (r *api.ActionResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Action(ctx, req)
+}
+
+func (p *kMessageClient) ChatLatest(ctx context.Context, req *api.ChatLatestReq, callOptions ...callopt.Option) (r *api.ChatLatestResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ChatLatest(ctx, req)
 }

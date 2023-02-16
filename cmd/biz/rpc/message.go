@@ -72,3 +72,15 @@ func Action(fromUID, toUID, actionType int, content string) *api.ActionResp {
 	ChatOnlineMap[fUIDi64] = time.Now().Unix()
 	return resp
 }
+
+func ChatLatest(fromUID, toUID int) string {
+	req := &api.ChatLatestReq{
+		FromUserId: int64(fromUID),
+		ToUserId:   int64(toUID),
+	}
+	resp, err := messageClient.ChatLatest(context.Background(), req, callopt.WithRPCTimeout(3*time.Second), callopt.WithConnectTimeout(3*time.Second))
+	if err != nil {
+		return ""
+	}
+	return resp.Message.Content
+}

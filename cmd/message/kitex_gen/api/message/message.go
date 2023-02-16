@@ -19,8 +19,9 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "Message"
 	handlerType := (*api.Message)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"chat":   kitex.NewMethodInfo(chatHandler, newMessageChatArgs, newMessageChatResult, false),
-		"action": kitex.NewMethodInfo(actionHandler, newMessageActionArgs, newMessageActionResult, false),
+		"chat":       kitex.NewMethodInfo(chatHandler, newMessageChatArgs, newMessageChatResult, false),
+		"action":     kitex.NewMethodInfo(actionHandler, newMessageActionArgs, newMessageActionResult, false),
+		"chatLatest": kitex.NewMethodInfo(chatLatestHandler, newMessageChatLatestArgs, newMessageChatLatestResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "api",
@@ -72,6 +73,24 @@ func newMessageActionResult() interface{} {
 	return api.NewMessageActionResult()
 }
 
+func chatLatestHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*api.MessageChatLatestArgs)
+	realResult := result.(*api.MessageChatLatestResult)
+	success, err := handler.(api.Message).ChatLatest(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newMessageChatLatestArgs() interface{} {
+	return api.NewMessageChatLatestArgs()
+}
+
+func newMessageChatLatestResult() interface{} {
+	return api.NewMessageChatLatestResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -97,6 +116,16 @@ func (p *kClient) Action(ctx context.Context, req *api.ActionReq) (r *api.Action
 	_args.Req = req
 	var _result api.MessageActionResult
 	if err = p.c.Call(ctx, "action", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ChatLatest(ctx context.Context, req *api.ChatLatestReq) (r *api.ChatLatestResp, err error) {
+	var _args api.MessageChatLatestArgs
+	_args.Req = req
+	var _result api.MessageChatLatestResult
+	if err = p.c.Call(ctx, "chatLatest", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

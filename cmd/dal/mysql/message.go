@@ -12,6 +12,14 @@ func GetMessages(fromUID, toUID int) ([]model.Message, error) {
 	return msgs, nil
 }
 
+func GetLatestMessage(fromUID, toUID int) (*model.Message, error) {
+	var msg model.Message
+	if err := DB.Where("(from_user_id = ? and to_user_id = ?) or (from_user_id = ? and to_user_id = ?)", fromUID, toUID, toUID, fromUID).Last(&msg).Error; err != nil {
+		return nil, err
+	}
+	return &msg, nil
+}
+
 func NewMessage(fromUID, toUID int, content string) error {
 	msg := model.Message{
 		FromUserId: fromUID,

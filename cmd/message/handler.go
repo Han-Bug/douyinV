@@ -54,3 +54,21 @@ func (s *MessageImpl) Action(ctx context.Context, req *api.ActionReq) (resp *api
 	}
 	return
 }
+
+// ChatLatest implements the MessageImpl interface.
+func (s *MessageImpl) ChatLatest(ctx context.Context, req *api.ChatLatestReq) (resp *api.ChatLatestResp, err error) {
+	msg, err := mysql.GetLatestMessage(int(req.FromUserId), int(req.ToUserId))
+	if err != nil {
+		return nil, err
+	}
+
+	resp = &api.ChatLatestResp{
+		Message: &api.Msg{
+			ToUserId:   int64(msg.ToUserId),
+			FromUserId: int64(msg.FromUserId),
+			Content:    msg.Content,
+			CreateTime: msg.CreatedAt.Unix(),
+		},
+	}
+	return
+}
