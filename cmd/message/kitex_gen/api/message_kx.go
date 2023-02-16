@@ -12,6 +12,7 @@ import (
 type ChatReq struct {
 	FromUserId int64 `thrift:"from_user_id,1,required" frugal:"1,required,i64" json:"from_user_id"`
 	ToUserId   int64 `thrift:"to_user_id,2,required" frugal:"2,required,i64" json:"to_user_id"`
+	LatestTime int64 `thrift:"latest_time,3,required" frugal:"3,required,i64" json:"latest_time"`
 }
 
 func NewChatReq() *ChatReq {
@@ -29,16 +30,24 @@ func (p *ChatReq) GetFromUserId() (v int64) {
 func (p *ChatReq) GetToUserId() (v int64) {
 	return p.ToUserId
 }
+
+func (p *ChatReq) GetLatestTime() (v int64) {
+	return p.LatestTime
+}
 func (p *ChatReq) SetFromUserId(val int64) {
 	p.FromUserId = val
 }
 func (p *ChatReq) SetToUserId(val int64) {
 	p.ToUserId = val
 }
+func (p *ChatReq) SetLatestTime(val int64) {
+	p.LatestTime = val
+}
 
 var fieldIDToName_ChatReq = map[int16]string{
 	1: "from_user_id",
 	2: "to_user_id",
+	3: "latest_time",
 }
 
 func (p *ChatReq) Read(iprot thrift.TProtocol) (err error) {
@@ -47,6 +56,7 @@ func (p *ChatReq) Read(iprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	var issetFromUserId bool = false
 	var issetToUserId bool = false
+	var issetLatestTime bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -84,6 +94,17 @@ func (p *ChatReq) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
+		case 3:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetLatestTime = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -105,6 +126,11 @@ func (p *ChatReq) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetToUserId {
 		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetLatestTime {
+		fieldId = 3
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -143,6 +169,15 @@ func (p *ChatReq) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *ChatReq) ReadField3(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.LatestTime = v
+	}
+	return nil
+}
+
 func (p *ChatReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("ChatReq"); err != nil {
@@ -155,6 +190,10 @@ func (p *ChatReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 
@@ -210,6 +249,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
+func (p *ChatReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("latest_time", thrift.I64, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.LatestTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *ChatReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -229,6 +285,9 @@ func (p *ChatReq) DeepEqual(ano *ChatReq) bool {
 	if !p.Field2DeepEqual(ano.ToUserId) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.LatestTime) {
+		return false
+	}
 	return true
 }
 
@@ -242,6 +301,13 @@ func (p *ChatReq) Field1DeepEqual(src int64) bool {
 func (p *ChatReq) Field2DeepEqual(src int64) bool {
 
 	if p.ToUserId != src {
+		return false
+	}
+	return true
+}
+func (p *ChatReq) Field3DeepEqual(src int64) bool {
+
+	if p.LatestTime != src {
 		return false
 	}
 	return true

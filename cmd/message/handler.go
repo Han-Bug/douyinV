@@ -19,6 +19,9 @@ func (s *MessageImpl) Chat(ctx context.Context, req *api.ChatReq) (resp *api.Cha
 
 	var msgList []*api.Msg
 	for _, v := range msgs {
+		if v.CreatedAt.Unix() <= req.LatestTime {
+			continue
+		}
 		msgList = append(msgList, &api.Msg{
 			ToUserId:   int64(v.ToUserId),
 			FromUserId: int64(v.FromUserId),

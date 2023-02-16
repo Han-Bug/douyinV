@@ -10,6 +10,7 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"strconv"
 	"tiktok/biz/handler"
+	"tiktok/biz/rpc"
 	"tiktok/feed/kitex_gen/api"
 	"tiktok/mock"
 )
@@ -54,14 +55,29 @@ func customizedRegister(r *server.Hertz) {
 		if uid == 1 {
 			ctx.JSON(200, utils.H{
 				"status_code": 0,
-				"user_list":   []api.User{mock.GetUserByID(2).Basic},
+				"user_list": []struct {
+					api.User
+					Message string `json:"message,omitempty"`
+				}{
+					{mock.GetUserByID(2).Basic,
+						"",
+					},
+				},
 			})
-		} else {
+		} else if uid == 2 {
 			ctx.JSON(200, utils.H{
 				"status_code": 0,
-				"user_list":   []api.User{mock.GetUserByID(1).Basic},
+				"user_list": []struct {
+					api.User
+					Message string `json:"message,omitempty"`
+				}{
+					{mock.GetUserByID(1).Basic,
+						"",
+					},
+				},
 			})
 		}
+		delete(rpc.ChatOnlineMap, int64(uid)) //和做[好友列表]的说加上这条语句在最后
 	})
 
 	r.GET("/douyin/favorite/list/", func(c context.Context, ctx *app.RequestContext) {

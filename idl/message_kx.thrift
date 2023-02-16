@@ -3,6 +3,7 @@ namespace go api
 struct ChatReq {
     1: required i64 from_user_id
     2: required i64 to_user_id
+    3: required i64 latest_time
 }
 
 struct ChatResp {
