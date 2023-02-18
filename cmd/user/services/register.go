@@ -2,10 +2,10 @@ package services
 
 import (
 	"context"
-	"douyinV/cmd/user/dal/mysqlDB"
-	"douyinV/cmd/user/kitex_gen/user"
-	"douyinV/pkg/errno"
-	utils "douyinV/pkg/md5"
+	"douyinV/user/dal/mysqlDB"
+	"douyinV/user/kitex_gen/user"
+	"douyinV/user/pkg/errno"
+	utils "douyinV/user/pkg/md5"
 	"github.com/go-sql-driver/mysql"
 	"strings"
 )
@@ -37,6 +37,9 @@ func Register(ctx context.Context, req user.RegisterRequest) (int64, error) {
 			if errMySQL.Number == 1062 {
 				// 账号已存在
 				return 0, errno.UserAlreadyExistErr
+			} else {
+				// TODO 如果是其他数据库错误
+				return 0, err
 			}
 		} else {
 			// TODO 如果是其他数据库错误

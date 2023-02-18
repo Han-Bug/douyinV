@@ -2,8 +2,8 @@ package mysqlDB
 
 import (
 	"context"
-	"douyinV/cmd/user/kitex_gen/user"
-	. "douyinV/cmd/user/model"
+	"douyinV/user/kitex_gen/user"
+	. "douyinV/user/model"
 	"errors"
 	"gorm.io/gorm"
 )
@@ -15,14 +15,15 @@ func CreateUser(ctx context.Context, username string, password string) (int64, e
 		Name:     username,
 		Password: password,
 	}
-	tx := DB.Begin()
-	if err := tx.WithContext(ctx).Create(&newUser).Error; err != nil {
-		tx.Rollback()
+	err := DB.Transaction(func(tx *gorm.DB) error {
+		return tx.WithContext(ctx).Create(&newUser).Error
+	})
+	if err != nil {
 		return 0, err
 	}
 	// 获取新用户的id
 	u := User{}
-	DB.Where(&User{Name: username}).First(&u)
+	DB.Where(&User{Name: username}).Limit(1).Find(&u)
 	return u.ID, nil
 }
 

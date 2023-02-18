@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	user "douyinV/cmd/user/kitex_gen/user"
-	"douyinV/cmd/user/pack"
-	"douyinV/cmd/user/services"
-	"douyinV/pkg/errno"
+	user "douyinV/user/kitex_gen/user"
+	"douyinV/user/pkg"
+	"douyinV/user/pkg/errno"
+	"douyinV/user/services"
 )
 
 // UserSvrImpl implements the last service interface defined in the IDL.
@@ -21,11 +21,11 @@ func (s *UserSvrImpl) Register(ctx context.Context, req *user.RegisterRequest) (
 	}
 	id, err := services.Register(ctx, *req)
 	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
+		resp.BaseResp = pkg.BuildBaseResp(err)
 		return resp, nil
 	}
 	resp.Id = id
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.BaseResp = pkg.BuildBaseResp(errno.Success)
 
 	return resp, nil
 }
@@ -38,12 +38,12 @@ func (s *UserSvrImpl) Login(ctx context.Context, req *user.LoginRequest) (resp *
 	}
 	id, err := services.Login(ctx, *req)
 	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
+		resp.BaseResp = pkg.BuildBaseResp(err)
 		return resp, nil
 	}
 	// id为0表示不存在该用户
 	resp.Id = id
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.BaseResp = pkg.BuildBaseResp(errno.Success)
 
 	return resp, nil
 }
@@ -61,7 +61,7 @@ func (s *UserSvrImpl) UserInfo(ctx context.Context, req *user.UserInfoRequest) (
 	}
 	info, err := services.Info(ctx, req)
 	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
+		resp.BaseResp = pkg.BuildBaseResp(err)
 		return resp, nil
 	}
 	resp = &user.UserInfoResponse{
@@ -72,7 +72,7 @@ func (s *UserSvrImpl) UserInfo(ctx context.Context, req *user.UserInfoRequest) (
 		IsFollow:      info.IsFollow,
 		BaseResp:      nil,
 	}
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp.BaseResp = pkg.BuildBaseResp(errno.Success)
 
 	return resp, nil
 }

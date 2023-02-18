@@ -1,0 +1,15 @@
+
+HertzConfig:
+  Address: "127.0.0.1:8080"
+
+
+EtcdConfig:
+  EtcdAddress: "127.0.0.1:2379"
+  ServiceAddress: "127.0.0.1:12000"
+  UserServerName: "UserServer"
+  CommentServerName: "CommentServer"
+  FavoriteServerName: "FavoriteServer"
+  FeedServerName: "FeedServer"
+  MessageServerName: "MessageServer"
+  PublishServerName: "PublishServer"
+  RelationServerName: "RelationServer"

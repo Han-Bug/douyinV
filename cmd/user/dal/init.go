@@ -1,7 +1,15 @@
 package dal
 
-import "douyinV/cmd/user/dal/mysqlDB"
+import (
+	"douyinV/user/config"
+	"douyinV/user/dal/mysqlDB"
+)
 
-func Init() {
-	mysqlDB.Init()
+func Init(c *config.DataBaseConfig) error {
+
+	err := mysqlDB.Init(c.MySql)
+	if err != nil {
+		return err
+	}
+	return nil
 }

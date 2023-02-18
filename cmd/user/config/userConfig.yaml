@@ -1,0 +1,12 @@
+
+DBConfig:
+  MySql:
+    username: "root"
+    password: "passowrd"
+    Address: "47.108.237.99:3311"
+    DBName: "douyin"
+    options: "charset=utf8mb4&parseTime=True&loc=Local"
+EtcdConfig:
+  EtcdAddress: "127.0.0.1:2379"
+  ServiceAddress: "127.0.0.1:12100"
+  ServiceName: "UserServer"

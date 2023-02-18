@@ -1,5 +1,9 @@
 package rpc
 
-func Init() {
-	initUserRpc()
+func Init() error {
+	err := initUserRpc()
+	if err != nil {
+		return err
+	}
+	return nil
 }

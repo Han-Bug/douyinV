@@ -2,7 +2,7 @@
 package usersvr
 
 import (
-	user "douyinV/cmd/user/kitex_gen/user"
+	user "douyinV/user/kitex_gen/user"
 	server "github.com/cloudwego/kitex/server"
 )
 

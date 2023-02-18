@@ -2,9 +2,9 @@ package services
 
 import (
 	"context"
-	"douyinV/cmd/user/dal/mysqlDB"
-	"douyinV/cmd/user/kitex_gen/user"
-	"douyinV/pkg/errno"
+	"douyinV/user/dal/mysqlDB"
+	"douyinV/user/kitex_gen/user"
+	"douyinV/user/pkg/errno"
 	"errors"
 	"gorm.io/gorm"
 )
