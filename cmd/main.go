@@ -7,10 +7,13 @@ import (
 	"tiktok/biz/rpc"
 	"tiktok/config"
 	"tiktok/dal"
+	"tiktok/tracer"
 )
 
 func main() {
 	config.Init()
+
+	tracer.InitJaeger("api")
 
 	rpc.Init()
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
+	tracer "github.com/kitex-contrib/tracer-opentracing"
 	"log"
 	"tiktok/config"
 	"tiktok/feed/kitex_gen/api"
@@ -14,7 +15,11 @@ import (
 var feedClient feed.Client
 
 func initFeed() {
-	fc, err := feed.NewClient("feed", client.WithHostPorts(config.ServerFeedUrlHP))
+	fc, err := feed.NewClient(
+		"feed",
+		client.WithHostPorts(config.ServerFeedUrlHP),
+		client.WithSuite(tracer.NewDefaultClientSuite()),
+	)
 	if err != nil {
 		panic("连接feed服务失败！" + err.Error())
 	}

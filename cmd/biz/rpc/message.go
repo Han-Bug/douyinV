@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
+	tracer "github.com/kitex-contrib/tracer-opentracing"
 	"log"
 	"tiktok/config"
 	"tiktok/message/kitex_gen/api"
@@ -16,7 +17,11 @@ var messageClient message.Client
 var ChatOnlineMap = make(map[int64]int64)
 
 func initMessage() {
-	mc, err := message.NewClient("message", client.WithHostPorts(config.ServerMsgUrlHP))
+	mc, err := message.NewClient(
+		"message",
+		client.WithHostPorts(config.ServerMsgUrlHP),
+		client.WithSuite(tracer.NewDefaultClientSuite()),
+	)
 	if err != nil {
 		panic("连接message服务失败！" + err.Error())
 	}
