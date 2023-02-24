@@ -47,7 +47,7 @@ struct User {
     11: required i64 FavoriteCount (api.body="favorite_count")
 }
 
-service Publish{
+service PublishSvr{
     ActionResponse Action(1: ActionRequest req) (api.post="douyin/publish/action")
     ListResponse List(1: ListRequest req) (api.get="douyin/publish/list")
 }

@@ -20,7 +20,7 @@ func Action(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	//
+	// 将数据存至minio并获取链接
 
 	resp := new(publish.ActionResponse)
 

@@ -1,1 +1,1 @@
-package favorite
+package main
